@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-int main() {
+int vectoring() {
     MyVector<int> vec;
     vec.push_back(1);
     vec.push_back(2);

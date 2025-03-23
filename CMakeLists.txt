@@ -19,3 +19,11 @@ add_executable(ATCPP src/main.cpp)
 
 target_link_libraries(ATCPP ATCPPlib)
 
+enable_testing()
+
+add_executable(tests test/vector_test.cpp)
+target_link_libraries(tests GTest::gtest_main ATCPPlib)
+
+include(GoogleTest)
+gtest_discover_tests(tests)
+

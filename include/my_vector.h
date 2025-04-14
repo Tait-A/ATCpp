@@ -101,6 +101,21 @@ public:
         return data[index];
     }
 
+    bool operator==(const MyVector& vec) const {
+        if (this == &vec) {
+            return true;
+        } else if (size != vec.size) {
+            return false;
+        } else {
+            for (int i; i < size; i++) {
+                if (data[i] != vec.data[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
     std::size_t get_size() const {
         return size;
     }

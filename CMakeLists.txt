@@ -14,6 +14,7 @@ FetchContent_MakeAvailable(googletest)
 
 
 add_library(ATCPPlib lib/my_vector.cpp)
+add_library(ATTCPPlib lib/type_templates.cpp)
 include_directories(include)
 add_executable(ATCPP src/main.cpp)
 
@@ -21,7 +22,7 @@ target_link_libraries(ATCPP ATCPPlib)
 
 enable_testing()
 
-add_executable(tests test/vector_test.cpp)
+add_executable(tests test/vector_test.cpp test/template_test.cpp)
 target_link_libraries(tests GTest::gtest_main ATCPPlib)
 
 include(GoogleTest)

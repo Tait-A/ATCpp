@@ -30,14 +30,15 @@ TEST(VectorTest, Test_constructors)
 }
 
 template <typename T>
-int push_back_test(T arr[]) {
+int push_back_test(T arr[], size_t arr_size) {
     MyVector<T> vec;
-    for (val : arr) {
-        vec.push_back(val);
+    for (size_t i = 0; i < arr_size; ++i) {
+        vec.push_back(arr[i]);
     }
 
-    arr_size = sizeof(arr)
-    if (vec.size() != )
+    if (vec.get_size() != arr_size)
+        return -1;
+    return 0;
 }
 
 
@@ -104,15 +105,89 @@ TEST(VectorTest, Test_push_back) {
         EXPECT_EQ(vec_vec[1][i], expected_inner_vec2[i]);
     }
 }
+TEST(VectorTest, Test_push_back_template) {
+    int int_arr[] = {1, 2, 3, 4, 5};
+    EXPECT_EQ(push_back_test(int_arr, 5), 0);
 
+    float float_arr[] = {1.1f, 2.2f, 3.3f, 4.4f};
+    EXPECT_EQ(push_back_test(float_arr, 4), 0);
 
+    std::string string_arr[] = {"Hello", "World", "Test"};
+    EXPECT_EQ(push_back_test(string_arr, 3), 0);
 
+    std::vector<int> vec_arr[] = {{1, 2}, {3, 4}, {5, 6}};
+    EXPECT_EQ(push_back_test(vec_arr, 3), 0);
+
+    char char_arr[] = {'a', 'b', 'c', 'd'};
+    EXPECT_EQ(push_back_test(char_arr, 4), 0);
+}
 
 TEST(VectorTest, Test_pop) {
+    MyVector<int> vec;
+    vec.push_back(1);
+    vec.push_back(2);
+    vec.push_back(3);
+    vec.push_back(4);
 
+    EXPECT_EQ(vec.get_size(), 4);
+
+    vec.pop();
+    EXPECT_EQ(vec.get_size(), 3);
+    EXPECT_EQ(vec[2], 3);
+
+    vec.pop();
+    EXPECT_EQ(vec.get_size(), 2);
+    EXPECT_EQ(vec[1], 2);
+
+    vec.pop();
+    EXPECT_EQ(vec.get_size(), 1);
+    EXPECT_EQ(vec[0], 1);
+
+    vec.pop();
+    EXPECT_EQ(vec.get_size(), 0);
 }
 
 TEST(VectorTest, Test_operator_equality) {
-    int arr[5] = {1,2,3,4,5};
-    MyVector<int> int_vec2;
+    int arr[5] = {1, 2, 3, 4, 5};
+    MyVector<int> int_vec1;
+    for (int i = 0; i < 5; i++) {
+        int_vec1.push_back(arr[i]);
+    }
+
+    MyVector<int> int_vec2 = int_vec1;
+    EXPECT_EQ(int_vec1.get_size(), int_vec2.get_size());
+    for (int i = 0; i < int_vec1.get_size(); i++) {
+        EXPECT_EQ(int_vec1[i], int_vec2[i]);
+    }
+
+    MyVector<int> int_vec3;
+    int_vec3 = int_vec1;
+    EXPECT_EQ(int_vec1.get_size(), int_vec3.get_size());
+    for (int i = 0; i < int_vec1.get_size(); i++) {
+        EXPECT_EQ(int_vec1[i], int_vec3[i]);
+    }
+
+    MyVector<int> int_vec4;
+    int_vec4.push_back(10);
+    EXPECT_NE(int_vec1, int_vec4);
+
+    int_vec1 = int_vec1;
+    EXPECT_EQ(int_vec1.get_size(), 5);
+    for (int i = 0; i < int_vec1.get_size(); i++) {
+        EXPECT_EQ(int_vec1[i], arr[i]);
+    }
+
+    MyVector<int> empty_vec1;
+    MyVector<int> empty_vec2;
+    EXPECT_EQ(empty_vec1, empty_vec2);
+
+    MyVector<int> int_vec5;
+    int_vec5.push_back(1);
+    EXPECT_NE(int_vec1, int_vec5);
+
+    MyVector<int> int_vec6;
+    for (int i = 0; i < 5; i++) {
+        int_vec6.push_back(arr[i] + 1);
+    }
+    EXPECT_TRUE(int_vec1 == int_vec6);
 }

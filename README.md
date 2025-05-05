@@ -1,2 +1,2 @@
 # ATCpp
-A C++ Library
+A C++ Library for me to learn new C++ concepts

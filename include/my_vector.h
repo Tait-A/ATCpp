@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <algorithm>
+#include <stdexcept>
 
 template <typename T>
 class MyVector {

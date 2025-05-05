@@ -9,9 +9,12 @@ template <typename T>
     int construct() {
         MyVector<T> vec1;
         MyVector<T> vec2(vec1);
-        MyVector<T> vec3(std::move(vec1));
-        MyVector<T> vec4 = vec2;
-        MyVector<T> vec5 = std::move(vec2);
+        MyVector<T> vec3;
+        vec3 = (std::move(vec1));
+        MyVector<T> vec4;
+        vec4 = vec2;
+        MyVector<T> vec5;
+        vec5 = std::move(vec2);
         return 0;
        }
 
